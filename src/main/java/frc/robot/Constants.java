@@ -12,4 +12,11 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {}
+public final class Constants {
+    public static final int RINSOLENOIDPIN = 0;
+    public static final int ROUTSOLENOIDPIN = 1;
+    public static final int LINSOLENOIDPIN = 2;
+    public static final int LOUTSOLENOIDPIN = 3;
+    public static final int RJOYSTICKPIN = 0;
+    public static final int LJOYSTICKPIN = 1;
+}

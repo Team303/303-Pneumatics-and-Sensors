@@ -8,7 +8,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.CompressorPneumatcs;
+import frc.robot.subsystems.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.PistonToggle;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -20,6 +24,14 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   public static CompressorPneumatcs compressorPneumatcs = new CompressorPneumatcs();
+  public static Solenoid solenoid = new Solenoid();
+  public static Joystick rightJoystick = new Joystick(Constants.RJOYSTICKPIN);
+  public static Joystick leftJoystick = new Joystick(Constants.LJOYSTICKPIN);
+
+  public void updateJoysticks() {
+    new JoystickButton(leftJoystick, 1).whenPressed(new PistonToggle("left"));
+    new JoystickButton(rightJoystick, 1).whenPressed(new PistonToggle("right"));
+  }
 
 
   /**
@@ -45,10 +57,10 @@ public class Robot extends TimedRobot {
    *
    * @return the command to run in autonomous
    */
+  /*
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
-  }
+  }*/
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
@@ -64,6 +76,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    updateJoysticks();
     updateSmart();
 
   }
@@ -78,7 +91,6 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
